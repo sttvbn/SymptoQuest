@@ -5,25 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel = "stylesheet" href = "header.css">
-    <link rel = "stylesheet" href = "homepage.css"> 
-    <link rel = "stylesheet" href = "navigationbar.css">
+    <link rel = "stylesheet" href = "login.css">
+ 
 </head>
 <body>
-    <header>
-        <div class="topbar">
-            
-            <nav>
-                <ul>
-                    <li><a href="home.html">Home</a></li> <!--create a logo or some kind of button for users to return back to the homepage-->
-
-                </ul>
-            </nav>
-        </div>
-    </header>
-<footer> 
-    <p1> Copyright 2024 Steven Liu</p1>
-</footer>
+    <div class="form-container">
+        <form action="/submit-login" class="form-box" id="login-form">
+          <h2>Login</h2>
+          <label for="login-username">Username</label>
+          <input type="text" id="login-username" name="login-username" required>
+      
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="login-password" required>
+      
+          <button type="submit" class="btn">Login</button>
+        </form>
+      
+        <form action="/submit-signup" class="form-box" id="signup-form">
+          <h2>Sign Up</h2>
+          <label for="signup-username">Username</label>
+          <input type="text" id="signup-username" name="signup-username" required>
+      
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="signup-password" required>
+      
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" name="signup-email" required>
+      
+          <button type="submit" class="btn">Sign Up</button>
+        </form>
+      </div>
     </div>
 </body>
 </html>
