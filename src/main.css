@@ -42,3 +42,11 @@ footer {
     bottom: 0;
     padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/
 }
+
+
+/*wanted to find where the "About us" was hiding so it's displayed on the screen*/
+main {
+    text-align: center;
+    position: fixed;
+    padding: 50px 20px;
+}
