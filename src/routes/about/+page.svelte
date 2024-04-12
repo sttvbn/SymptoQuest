@@ -1,5 +1,6 @@
-<!--<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p> -->
+<h1>Welcome to SvelteKit</h1>
+<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>Welcome to the about page (this is a test to make sure everything is set up correctly)</h1>
 
 <body>
     <div class="navbar">
@@ -12,26 +13,24 @@
         </ul>
     </div>
 
-    <div class="content">
-        <h1>Welcome to Our Website</h1>
-        <p>PLEASE DO NOT RELIE ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU'RE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
-    </div>
-</body>
 
 <footer> 
     <p1> Copyright 2024 SymptoQuest</p1>
 </footer>
+</body>
 
 
 <style>
 
+body {
+    font-family: Arial, sans-serif;
+}
 
 ul {
     list-style-type: none; /*remove the bulletpoint */
     padding: 0; 
     margin: 0; 
     display: flex; /*make them rows instead of list*/
-    font-family: Arial, sans-serif;
 }
 .navbar {
     overflow: hidden;
@@ -60,11 +59,6 @@ ul {
     color: black;
 }
 
-.content {
-    padding: 100px;
-    text-align: center;
-
-}
 
 
 footer {
@@ -74,8 +68,6 @@ footer {
     left: 50%; /*helped moved the footer right in the middle*/
     width: 100;
     padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/
-
 }
 
 </style>
-

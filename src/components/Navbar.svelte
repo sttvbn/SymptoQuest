@@ -1,20 +1,17 @@
-<!--<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p> -->
-
 <body>
     <div class="navbar">
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/page">Home</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="/checker">Check up</a></li>
-            <li><a href="/map"> Find a Office</a></li>
+            <li><a href="/">Check up</a></li>
+            <li><a href="doc.html"> Find a Office</a></li>
             <li><a href="login.html">Login/Sign up</a></li>
         </ul>
     </div>
 
     <div class="content">
         <h1>Welcome to Our Website</h1>
-        <p>PLEASE DO NOT RELIE ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU'RE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
+        <p>This is the home page. Use the navigation bar to go to other pages.</p>
     </div>
 </body>
 
@@ -24,15 +21,10 @@
 
 
 <style>
-
-
-ul {
-    list-style-type: none; /*remove the bulletpoint */
-    padding: 0; 
-    margin: 0; 
-    display: flex; /*make them rows instead of list*/
+    body {
     font-family: Arial, sans-serif;
 }
+
 .navbar {
     overflow: hidden;
     background-color: #333;
@@ -71,11 +63,7 @@ footer {
     text-align: center;
     position: fixed;
     bottom: 0;
-    left: 50%; /*helped moved the footer right in the middle*/
-    width: 100;
     padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/
-
 }
 
 </style>
-
