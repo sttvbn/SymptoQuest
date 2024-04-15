@@ -1,0 +1,12 @@
+{
+    "symptoms": [
+        {
+            "name": "fever", 
+            "questions": "Do you have a fever?"
+        },
+        {
+            "name": "cough",
+            "questions": "Do you have a cough?"
+        }
+    ]
+}
