@@ -1,6 +1,3 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<h1>Welcome to the Map page (this is a test to make sure everything is set up correctly)</h1>
 
 <!--<h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p> -->
@@ -17,7 +14,7 @@
     </div>
 
     <div class="content">
-        <h1>Welcome to Our Website</h1>
+        <h1>Welcome to the Map</h1>
     </div>
 </body>
 
