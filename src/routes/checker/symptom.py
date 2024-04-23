@@ -1,47 +1,58 @@
 # checker/symptom_checker.py
 import json
 
-class SymptomChecker:
-    def __init__(self):
-        with open('symptom.json') as f:
-            data = json.load(f)
-            self.symptoms = {symptom['name']: symptom['questions'] for symptom in data['symptoms']}
 
-        self.diagnoses = {
-            ('fever', 'cough'): 'You may have a cold.',
-            # Add more diagnoses based on symptom combinations
-        }
+def __inti__(self, filename):
+    self.data = self.load(filename)
+    self.question = self.data['questions']
+    self.symptom = self.data['symptoms']
 
-    def get_next_question(self, symptoms):
-        for symptom, question in self.symptoms.items():
-            if symptom not in symptoms:
-                return question
+def load(filename):
+    with open('symptom.json', 'r') as file:
+        data = json.load(file)
+    return data
 
-    def diagnose(self, symptoms):
-        for symptom_combination, diagnosis in self.diagnoses.items():
-            if set(symptom_combination).issubset(symptoms):
-                return diagnosis
-        return "No diagnosis found."
-
-# Example usage
-if __name__ == "__main__":
-    checker = SymptomChecker()
-    symptoms = []
-
-    while True:
-        next_question = checker.get_next_question(symptoms)
-        user_response = input(next_question + ' (yes/no): ').lower().strip()
-        if user_response == 'yes':
-            for symptom, question in checker.symptoms.items():
-                if question == next_question:
-                    symptoms.append(next_question)
-                    break
-        elif user_response == 'no':
-            pass  # Do nothing
+def ask_question(questions):
+    answers = {}
+    for question in questions:
+        answer = input(f"{question['question']} (yes/no): ").lower()
+        if answer == 'yes':
+            answers[question['id']] = True
+        elif answer == 'no':
+            answers[question['id']] = False
         else:
-            print("Invalid response. Please answer 'yes' or 'no'.")
-            continue
+            print("Invalid! Please answer with only 'yes' or 'no'. ")
+            return questions
+    return answers
+        
+def identify_symptom(answer, symptoms):
+    possible_symptom = []
+    for symptom in symptoms:
+        match = True
+        for question_id in symptom['question_id']:
+            if answer.get(question_id, False) != True:
+                match = False
+                break
+        if match:
+            possible_symptom.append(symptom['name'])
+    return possible_symptom
+    
 
-        diagnosis = checker.diagnose(symptoms)
-        print("Diagnosis:", diagnosis)
-        break
+def main():
+    data = load('symptoms.json')
+    questions = data['questions']
+    symptoms = data['symptoms']
+
+    print("Please answer the following questions for Diagnosis:")
+    response = ask_question(questions)
+    possible_symptom = identify_symptom(response, symptoms)
+
+    if possible_symptom:
+        print("Possbile symptom that you have is: ")
+        for symptom in possible_symptom:
+            print(f"- {symptom}")
+    else:
+        print("No matching in the system. Please consult with a professional doctor.")
+
+if __name__ == "__main__":
+    main()

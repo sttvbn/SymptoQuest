@@ -1,12 +1,35 @@
+
 {
-    "symptoms": [
+    "questions": [
         {
-            "name": "fever", 
-            "questions": "Do you have a fever?"
+            "id": 1, 
+            "question": "Do you feel hot?"
         },
         {
-            "name": "cough",
-            "questions": "Do you have a cough?"
+            "id": 2, 
+            "question": "Do you feel cold?"
+        },
+        {
+            "id": 3, 
+            "question": "Do you have a headache?"
+        },
+        {
+            "id": 4, 
+            "question": "Do you feel weak or don't have enough strength?"
+        },
+        {
+            "id": 5, 
+            "question": "Do you have a difficult time breathing?"
+        }
+    ],
+    "symptoms":[
+        {
+            "name": "Fever",
+            "question_id": [1,2,3,4]
+        },
+        {
+            "name": "Covid-19",
+            "question_id": [1,2,3,4,5]
         }
     ]
 }
