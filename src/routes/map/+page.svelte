@@ -1,7 +1,4 @@
 
-<!--<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p> -->
-
 <body>
     <div class="navbar">
         <ul>
@@ -9,13 +6,17 @@
             <li><a href="/about">About Us</a></li>
             <li><a href="/checker">Check up</a></li>
             <li><a href="/map"> Find a Office</a></li>
-            <li><a href="login.html">Login/Sign up</a></li>
+            <li><a href="/login">Login/Sign up</a></li>
         </ul>
     </div>
 
     <div class="content">
         <h1>Welcome to the Map</h1>
     </div>
+
+
+	<div id="map"></div>
+
 </body>
 
 <footer> 
@@ -24,8 +25,10 @@
 
 
 <style>
-
-
+	#map {
+		height: 500px;
+		width: 100%;
+	}
 ul {
     list-style-type: none; /*remove the bulletpoint */
     padding: 0; 

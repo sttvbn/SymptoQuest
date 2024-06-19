@@ -7,7 +7,7 @@
             <li><a href="/about">About Us</a></li>
             <li><a href="/checker">Check up</a></li>
             <li><a href="/map"> Find a Office</a></li>
-            <li><a href="login.html">Login/Sign up</a></li>
+            <li><a href="/login">Login/Sign up</a></li>
         </ul>
     </div>
 
