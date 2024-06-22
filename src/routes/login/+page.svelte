@@ -1,3 +1,36 @@
+<script>
+  import { authHandlers, authStore } from "../../stores/authStore.js"; 
+
+  let register = true; //this should set the login part. If switched to true then it will changed to sign up part
+  let email = ''; 
+  let password = '';
+  let confirmPassword = ''; 
+
+  async function handleSubmit(){
+      if (!email || !password || (register && !confirmPassword)) {
+          return; 
+      }
+
+      if (register && password === confirmPassword) {
+          try {
+              await authHandlers.signup(email, password)
+          } catch (err) {
+              console.log(err)
+          }
+      } else {
+          try {
+              await authHandlers.login(email, password);
+          }catch (err) {
+            console.log(err);
+          }
+      }
+      //this should direct the user to the about page once user have logged in
+      if ($authStore.currentUser) {
+        window.location.href = '/about';
+      }
+    }
+</script>
+
 <div class="navbar">
   <ul>
       <li><a href="/">Home</a></li>
@@ -9,32 +42,39 @@
 </div>
 
 <body>
-    <div class="form-container">
-        <form action="/submit-login" class="form-box" id="login-form">
-          <h2>Login</h2>
-          <label for="login-username">Username</label>
-          <input type="text" id="login-username" name="login-username" required>
-      
-          <label for="login-password">Password</label>
-          <input type="password" id="login-password" name="login-password" required>
-      
-          <button type="submit" class="btn">Login</button>
-        </form>
-      
-        <form action="/submit-signup" class="form-box" id="signup-form">
-          <h2>Sign Up</h2>
-          <label for="signup-username">Username</label>
-          <input type="text" id="signup-username" name="signup-username" required>
-      
-          <label for="signup-password">Password</label>
-          <input type="password" id="signup-password" name="signup-password" required>
-      
-          <label for="signup-email">Email</label>
-          <input type="email" id="signup-email" name="signup-email" required>
-      
-          <button type="submit" class="btn">Sign Up</button>
-        </form>
-      </div>
+  {#if register}
+    <div id = "login-form" class = "form-container">
+      <form class="form-box" id="login-form">
+        <h2>Login</h2>
+        <label for="login-username">Email</label>
+        <input bind:value={email} type="text" id="login-email" name="login-email" required>
+    
+        <label for="login-password">Password</label>
+        <input bind:value={password} type="password" id="login-password" name="login-password" required>
+        
+        <button type="submit" class="btn" on:click={handleSubmit}>Login</button>
+        <button type= "button" class = "toggle-login" on:click={() => { register = false;}} on:keydown={() => {}}>Don't have an account?<p>Sign Up</p></button>
+        
+      </form>
+    </div>
+    {:else}    
+    <div id = "signup-form" class = "form-container">
+      <form class="form-box" id="signup-form">
+        <h2>Sign Up</h2>
+        <label for="signup-username">Email</label>
+        <input bind:value={email} type="text" id="signup-username" name="signup-username" required>
+    
+        <label for="signup-password">Password</label>
+        <input bind:value={password} type="password" id="signup-password" name="signup-password" required>
+    
+        <label for="confirmed-password">Confirm Password</label>
+        <input bind:value={confirmPassword} type="password" id="confirmed-password" name="confirmed-password" required>
+
+        <button type="submit" class="btn" on:click={handleSubmit}>Sign Up</button>
+        <button type ="button" class = "toggle-signup" on:click={() => { register = true;}} on:keydown={() => {}}>Already have an account?<p>Login</p></button>
+      </form>
+    </div>
+    {/if}
 </body>
 
 
@@ -74,7 +114,7 @@
 
 
   body{
-    height: 100%;
+    height: 100vh;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
@@ -99,7 +139,7 @@
     width: 300px;
   }
   
-  input[type=text], input[type=password], input[type=email] {
+  input[type=text], input[type=password]/*, input[type=email]*/ {
     width: 100%;
     padding: 15px;
     margin: 10px 0;
@@ -125,6 +165,23 @@
   
   h2 {
     text-align: center;
+  }
+
+  .toggle-login{
+    border: none;
+    background-color: transparent;
+    cursor: pointer; 
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+  }
+  .toggle-signup{
+    border: none;
+    background-color: transparent;
+    align-items: center;
+    cursor: pointer; 
+    display: flex;
+    text-decoration: underline;
   }
   
 </style>
