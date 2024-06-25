@@ -6,11 +6,12 @@
         const unsubscribe = auth.onAuthStateChanged((user) => {
             console.log(user);
             authStore.update((curr) => {
-                return {...curr, isLoading: false, currentUser: user };  
+                return {...curr, isLoading: false, currentUser: null };  
                 //error with login because of this section of the code. 
                 //if currentUser is changed to true the it will change page
             });
         });
+        return unsubscribe; 
     });
 </script>
 

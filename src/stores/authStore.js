@@ -11,8 +11,8 @@ export const authHandlers = {
     login: async(email, password) => {
         await signInWithEmailAndPassword(auth, email, password)
     },
-    signup: async (email, password) => {
-        await createUserWithEmailAndPassword(auth, email, password)
+    signup: async (email, password, firstname, lastname) => {
+        await createUserWithEmailAndPassword(auth, email, password, firstname, lastname)
     }, 
     logout: async () => {
         await signOut(auth)
