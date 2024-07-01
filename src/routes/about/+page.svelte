@@ -1,15 +1,28 @@
+<script>
+
+    import { authHandlers, authStore } from "../../stores/authStore";
+    import { auth } from '../../lib/firebase/firebase.client';
+
+    let email; 
+    authStore.subscribe((curr) => {
+        console.log('CURR', curr);
+        email = curr?.currentUser?.email;
+    });
+
+</script>
+
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 <h1>Welcome to the about page (this is a test to make sure everything is set up correctly)</h1>
 
+{#if $authStore.currentUser}
 <body>
     <div class="navbar">
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="/checker">Check up</a></li>
             <li><a href="/map"> Find a Office</a></li>
-            <li><a href="/login">Login/Sign up</a></li>
+            <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
     </div>
 
@@ -18,6 +31,9 @@
     <p1> Copyright 2024 SymptoQuest</p1>
 </footer>
 </body>
+{:else}
+<div>Error....</div>
+{/if}
 
 
 <style>

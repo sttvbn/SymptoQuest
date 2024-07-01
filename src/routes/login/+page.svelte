@@ -23,7 +23,7 @@
         message = 'Login Successful.';
         resetmessage();
 
-        window.location.href = '/about';
+        window.location.href = '/home';
       } catch (err) {
         errorMessage = 'Login Invalid. Please try again.';
         resetmessage();
@@ -84,16 +84,6 @@
     }
 </script>
 
-<div class="navbar">
-  <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/about">About Us</a></li>
-      <li><a href="/checker">Check up</a></li>
-      <li><a href="/map"> Find a Office</a></li>
-      <li><a href="/login">Login/Sign up</a></li>
-  </ul>
-</div>
-
 <body>
   {#if register}
     <div id = "login-form" class = "form-container">
@@ -149,40 +139,6 @@
 
 
 <style>
-  ul {
-    list-style-type: none; /*remove the bulletpoint */
-    padding: 0; 
-    margin: 0; 
-    display: flex; /*make them rows instead of list*/
-  }
-  .navbar{
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    background-color: #333;
-    padding: 10px 20px;
-    position: fixed; /*place the nav to the very top*/
-    width: 100%;
-    top: 0; /*this helps the nav go fully to the top*/
-    left: 0; 
-    display: flex; /*makes the buttons into rows not a list*/
-    justify-content: flex-end;
-  }
-  .navbar a {
-    display: block;
-    color: white;
-    /*text-align: center;*/
-    padding: 14px 20px;
-    text-decoration: none;
-    margin-left: 50px; /*this helps space out the buttons*/
-  }
-
-  .navbar a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-
-
-
   body{
     height: 100vh;
     margin: 0;
