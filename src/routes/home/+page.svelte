@@ -19,6 +19,7 @@
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
             <li><a href="/map"> Find a Office</a></li>
+            <li><a href="/GPT"> GPT Beta Test</a></li>
             <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
     </div>

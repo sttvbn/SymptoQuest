@@ -1,34 +1,25 @@
-<body>
-    <div class="navbar">
-        <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/map"> Find a Office</a></li>
-            <li><a href="/login">Login/Sign up</a></li>
-        </ul>
-    </div>
-
-    <div class="content">
-        <h1>Welcome to the Map</h1>
-    </div>
-
-
-</body>
-
 <!--this will be for the map-->
 <script>
     import { browser } from '$app/environment';
-    import { PUBLIC_GOOGLE_MAPS_API_KEY } from '$env/static/public';
+    import { PUBLIC_GOOGLE_MAPS_API_KEY, PUBLIC_MAP_ID} from '$env/static/public';
+    import { authHandlers, authStore } from "../../stores/authStore";
+    import { auth } from '../../lib/firebase/firebase.client';
 
     let Map; 
     let Marker;
     let map_object;
     let map_element;
 
+    let email; 
+    authStore.subscribe((curr) => {
+        console.log('CURR', curr);
+        email = curr?.currentUser?.email;
+    });
     const initialMapDisplayOptions = {
         zoom: 8, 
         center: { lat: 35, lng: -110},
-        mapId: 'SAMPLE_MAP_ID'
+        mapId: PUBLIC_MAP_ID
+
     };
 
     if (browser) {
@@ -73,22 +64,37 @@
     }
 </script>
 
-<div id = "map"></div>
-<br />
-<label for = "lat"> Latitude: <input name = "lat" type = "text" bind:value= {lat} /></label>
-<label for = "lng"> Longitude: <input name = "lng" type = "text" bind:value= {lng} /></label>
-<br /> <!--br = break-->
-<button on:click={() => get_current_position()}>Get Current Position</button>
-<button on:click={() => get_center()}>Get Map Center</button>
-<button on:click={() => set_center()}>Set Map Center</button>
-<br />
-<button on:click={() => create_marker()}> Create Marker</button>
-<label for ="markerText">Marker text:<input name= "markerText" type = "text" bind:value={markerText}/></label>
-<!--code for map ending-->
-
+{#if $authStore.currentUser}
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/map"> Find a Office</a></li>
+            <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Welcome to the Map</h1>
+    </div>
+    <div id="map"></div>
+    <label for = "lat"> Latitude: <input name = "lat" type = "text" bind:value= {lat} /></label>
+    <label for = "lng"> Longitude: <input name = "lng" type = "text" bind:value= {lng} /></label>
+    <br /> <!--br = break-->
+    <button on:click={() => get_current_position()}>Get Current Position</button>
+    <button on:click={() => get_center()}>Get Map Center</button>
+    <button on:click={() => set_center()}>Set Map Center</button>
+    <br />
+    <button on:click={() => create_marker()}> Create Marker</button>
+    <label for ="markerText">Marker text:<input name= "markerText" type = "text" bind:value={markerText}/></label>
+    <!--code for map ending-->
+</body>
 <footer> 
     <p1> Copyright 2024 SymptoQuest</p1>
 </footer>
+{:else}
+<div>Error....</div>
+{/if}
 
 
 <style>
