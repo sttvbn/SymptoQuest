@@ -1,6 +1,6 @@
-<script lang="ts">
+<script>
     let prompt = "";
-    let messages: any[] = [];
+    let messages = [];
 
     async function sendPrompt(){
         const response = await fetch("/", {
@@ -14,6 +14,29 @@
         messages = [...messages, message.data];
     }
 </script>
+<style>
+    h1 {
+        font-size: 36px;
+        font-family: Arial, sans-serif; 
+        text-align: center; 
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    textarea {
+        width: 300px; 
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100px;
+        padding: 5px;
+    }
+</style>
 <h1>SvelteGPT</h1>
 
 <form method="POST" on:submit|preventDefault={sendPrompt}>
