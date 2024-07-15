@@ -1,38 +1,29 @@
-import { env } from '$env/dynamic/private';
-//check for keywords
-const medicalKeywords = ['symptoms', "fever"]
-
-//function to check if a question is medical-related
-
-function isMedicalRelated(question){
-    const questionLower = question.toLowerCase();
-    return medicalKeywords.some(keyword => questionLower.includes(keyword));
-}
+import { env } from "$env/dynamic/private";
 
 export const actions = {
-    default: async ({request}) => {
+    default: async({request}) => {
         const form = await request.formData();
         const prompt = form.get("prompt");
         const openai_key = env.OPENAI_KEY;
-        console.log(prompt);
-        console.log(openai_key);
-        //prepare request
+
+        //send request
         const body = {
             model: "gpt-3.5-turbo",
-            message: [{role: "user", content: prompt}],
+            messages: [{role: "user", content: prompt}],
         };
-        //send request to OPENAI api
+        //send to OPENAI
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
-                "Content-Type":"application/json",
-                "Authorization": 'Bearer ${openai_key}',
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${openai_key}`,
             },
-            body: JSON.stringify(body), 
+            body: JSON.stringify(body),
         });
         const data = await response.json();
-        const message = data["choices"][0]['message']["content"]
+        const message = data["choices"][0]["message"]["content"]
+        console.log(message);
         return message;
-        console.log();
+        
     }
 }
