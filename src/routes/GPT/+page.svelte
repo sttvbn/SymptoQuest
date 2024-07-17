@@ -42,7 +42,7 @@
     let messages:string[] = [];
 
     async function sendPrompt() {
-        const response = await fetch("/", {
+        const response = await fetch("/GPT", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
