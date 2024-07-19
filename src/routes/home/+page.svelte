@@ -1,5 +1,5 @@
-<script>
 
+<script lang="ts">
     import { authHandlers, authStore } from "../../stores/authStore";
     import { auth } from '../../lib/firebase/firebase.client';
 
@@ -8,10 +8,21 @@
         console.log('CURR', curr);
         email = curr?.currentUser?.email;
     });
+    let prompt:string = "";
+    let messages:string[] = [];
 
+    async function sendPrompt() {
+        const response = await fetch("/home", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `prompt=${encodeURIComponent(prompt)}`
+        });
+        const message = await response.json();
+        messages = [...messages, message.data];
+    }
 </script>
-<!--<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p> -->
 {#if $authStore.currentUser}
 <body>
     <div class="navbar">
@@ -19,7 +30,6 @@
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
             <li><a href="/map"> Find a Office</a></li>
-            <li><a href="/GPT"> GPT Beta Test</a></li>
             <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
     </div>
@@ -29,6 +39,17 @@
         <p>PLEASE DO NOT RELIE ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU'RE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
     </div>
 </body>
+
+<form method="POST" on:submit|preventDefault={sendPrompt}>
+    <label for="prompt">
+        <textarea name="prompt" rows="5" bind:value={prompt}></textarea>
+        <button type="submit">Send</button>
+    </label>
+</form>
+
+{#each messages as message}
+    <pre>{message}</pre>
+    {/each}
 
 <footer> 
     <p1> Copyright 2024 SymptoQuest</p1>
@@ -92,6 +113,41 @@ footer {
     padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/
 
 }
+
+    h1{
+        font-size: 36px;
+        text-align: center;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    textarea{
+        width: 300px;
+        margin-bottom: 10px;
+        align-items: center;
+    }
+    button{
+        width: 100px;
+        padding: 5px;
+        color:blue
+    }
+    label{
+        align-items: center;
+    }
+    nav a{
+        float: left;
+        display: block;
+        color: rgb(198, 23, 23);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none; 
+    }
+    nav a:hover{
+        background-color: #b70d0d;
+        color: black;
+    }
 
 </style>
 
