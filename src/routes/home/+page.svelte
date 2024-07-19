@@ -47,11 +47,11 @@
     </label>
 </form>
 
-{#each messages as message}
-  <div class="message-container">
-    <p class="message-text">{message}</p>
-  </div>
-{/each}
+<div class = "container">
+    {#each messages as message}
+    <pre class = "message">{message}</pre>
+    {/each}
+</div>
 
 <footer> 
     <p1> Copyright 2024 SymptoQuest</p1>
@@ -64,58 +64,58 @@
 <style>
 
 
-ul {
-    list-style-type: none; /*remove the bulletpoint */
-    padding: 0; 
-    margin: 0; 
-    display: flex; /*make them rows instead of list*/
-    font-family: Arial, sans-serif;
-}
-.navbar {
-    overflow: hidden;
-    background-color: #333;
-    padding: 10px 0px;
-    position: fixed; /*place the nav to the very top*/
-    width: 100%;
-    top: 0; /*this helps the nav go fully to the top*/
-    left: 0; 
-    display: flex; /*makes the buttons into rows not a list*/
-    justify-content: flex-end;
+    ul {
+        list-style-type: none; /*remove the bulletpoint */
+        padding: 0; 
+        margin: 0; 
+        display: flex; /*make them rows instead of list*/
+        font-family: Arial, sans-serif;
+    }
+    .navbar {
+        overflow: hidden;
+        background-color: #333;
+        padding: 10px 0px;
+        position: fixed; /*place the nav to the very top*/
+        width: 100%;
+        top: 0; /*this helps the nav go fully to the top*/
+        left: 0; 
+        display: flex; /*makes the buttons into rows not a list*/
+        justify-content: flex-end;
+        
+    }
     
-}
-
-.navbar a {
-    display: block;
-    color: white;
-    /*text-align: center;*/
-    padding: 14px 20px;
-    text-decoration: none;
-    margin-left: 50px; /*this helps space out the buttons*/
-}
-
-
-.navbar a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-.content {
-    padding: 100px;
-    text-align: center;
-
-}
-
-
-footer {
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 50%; /*helped moved the footer right in the middle*/
-    width: 100;
-    padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/
-
-}
-
+    .navbar a {
+        display: block;
+        color: white;
+        /*text-align: center;*/
+        padding: 14px 20px;
+        text-decoration: none;
+        margin-left: 50px; /*this helps space out the buttons*/
+    }
+    
+    
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    
+    .content {
+        padding: 100px;
+        text-align: center;
+    
+    }
+    
+    
+    footer {
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 50%; /*helped moved the footer right in the middle*/
+        width: 100;
+        padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/
+    
+    }
+    
     h1{
         font-size: 36px;
         text-align: center;
@@ -126,42 +126,37 @@ footer {
         align-items: center;
     }
     textarea{
-        width: 300px;
-        margin-bottom: 10px;
+        width: 500px;
+        margin-bottom: 5px;
         align-items: center;
+        border-radius: 5px;
     }
     button{
         width: 100px;
         padding: 5px;
-        color:blue
+        color:blue;
     }
     label{
         align-items: center;
     }
-    nav a{
-        float: left;
-        display: block;
-        color: rgb(198, 23, 23);
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none; 
+    
+    
+    .container{
+        max-height: 70vh;
+        overflow-y: auto;
+        padding: 10px;
+        margin-top: 20px;
+        border: 0px solid #ccc; /*this will show the border line of the response*/
+        max-width: 90%;
+        margin: 20px auto;
     }
-    nav a:hover{
-        background-color: #b70d0d;
-        color: black;
+    .message{
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        margin-bottom: 10px;
+        padding: 10px; 
+        background: color #f1f1f1;
+        border-radius:50px;
     }
-    .message-container {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
-    }
-    .message-text {
-    white-space: pre-wrap; /* Allows the text to wrap */
-    word-wrap: break-word; /* Prevents long words from breaking layout */
-    margin: 0;
-  }
-
-</style>
-
+    
+    </style>
