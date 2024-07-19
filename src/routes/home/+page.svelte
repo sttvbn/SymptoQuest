@@ -48,8 +48,10 @@
 </form>
 
 {#each messages as message}
-    <pre>{message}</pre>
-    {/each}
+  <div class="message-container">
+    <p class="message-text">{message}</p>
+  </div>
+{/each}
 
 <footer> 
     <p1> Copyright 2024 SymptoQuest</p1>
@@ -148,6 +150,18 @@ footer {
         background-color: #b70d0d;
         color: black;
     }
+    .message-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    }
+    .message-text {
+    white-space: pre-wrap; /* Allows the text to wrap */
+    word-wrap: break-word; /* Prevents long words from breaking layout */
+    margin: 0;
+  }
 
 </style>
 
