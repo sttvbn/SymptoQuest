@@ -9,7 +9,8 @@
         email = curr?.currentUser?.email;
     });
     let prompt:string = "";
-    let messages:string[] = [];
+    //let messages:string[] = [];
+    let messages:{prompt: string, response: string}[] = [];
 
     async function sendPrompt() {
         const response = await fetch("/home", {
@@ -19,8 +20,13 @@
             },
             body: `prompt=${encodeURIComponent(prompt)}`
         });
-        const message = await response.json();
-        messages = [...messages, message.data];
+
+        if (response.ok) {
+            const message = await response.json();
+            messages = [...messages, {prompt, response: message.data}]; 
+            prompt = "";//this should clear the textarea after sending 
+        }
+         
     }
 </script>
 {#if $authStore.currentUser}
@@ -48,9 +54,12 @@
 </form>
 
 <div class = "container">
-    {#each messages as message}
-    <pre class = "message">{message}</pre>
-    {/each}
+    {#each messages as { prompt, response }}
+        <div class="message-block">
+            <pre class="message"><strong>{email}:</strong> {prompt}</pre>
+            <pre class="message"><strong>Assistant:</strong> {response}</pre>
+        </div>
+        {/each}
 </div>
 
 <footer> 
