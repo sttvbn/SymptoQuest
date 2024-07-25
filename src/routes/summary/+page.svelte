@@ -2,22 +2,16 @@
     import { authHandlers, authStore } from "../../stores/authStore";
     import { auth } from '../../lib/firebase/firebase.client';
     import { getDatabase, ref, get } from "firebase/database";
-    //import { onMount } from 'svelte';
+    import { onMount } from 'svelte';
 
     let email; 
+    let conversations = [];
+
     authStore.subscribe((curr) => {
         console.log('CURR', curr);
         email = curr?.currentUser?.email;
     });
 
-    let conversations = [];
-    //onMount(async () => {
-        //const db = getDatabase();
-        //const snapshot = await get(ref(db, 'conversations/'));
-        //if (snapshot.exists()){
-            //conversations = Object.values(snapshot.val());
-        //}
-    //});
 
     async function fetchConversations() {
         const db = getDatabase();
@@ -30,7 +24,10 @@
         }
     }
 
-    fetchConversations();
+    onMount(async () => {
+        await fetchConversations();
+    });
+    
 </script>
 {#if $authStore.currentUser}
 <body>
