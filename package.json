@@ -31,6 +31,7 @@
 	"dependencies": {
 		"@googlemaps/js-api-loader": "^1.16.6",
 		"firebase": "^10.12.2",
+		"google-maps": "^4.3.3",
 		"openai": "^4.52.7"
 	}
 }

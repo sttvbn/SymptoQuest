@@ -2,7 +2,9 @@
 import { deleteApp, getApp, getApps, initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import {getAuth, setPersistence, inMemoryPersistence} from 'firebase/auth'
+import {getAuth, setPersistence, inMemoryPersistence} from 'firebase/auth';
+
+import { getDatabase } from 'firebase/database';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APIKEY,
@@ -24,3 +26,4 @@ if (!getApps().length) {
 }
 
 export const auth = getAuth(firebaseApp)
+export const database = getDatabase(firebaseApp)

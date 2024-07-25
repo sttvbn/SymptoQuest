@@ -2,6 +2,7 @@
 <script lang="ts">
     import { authHandlers, authStore } from "../../stores/authStore";
     import { auth } from '../../lib/firebase/firebase.client';
+    import { getDatabase, ref, set} from "firebase/database"
 
     let email; 
     authStore.subscribe((curr) => {
@@ -25,8 +26,23 @@
             const message = await response.json();
             messages = [...messages, {prompt, response: message.data}]; 
             prompt = "";//this should clear the textarea after sending 
-        }
-         
+        } 
+    }
+
+    function saveConversation(conversation) {
+        const db = getDatabase();
+        const conversationId = Date.now().toString();
+        set(ref(db, 'conversations/' + conversationId), {
+            conversationId: conversationId,
+            email: email,
+            timestamp: new Date().toISOString(),
+            conversation: conversation
+        });
+    }
+
+    function endConversation(){
+        saveConversation(messages);
+        messages = [];
     }
 </script>
 {#if $authStore.currentUser}
@@ -35,7 +51,8 @@
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="/map"> Find a Office</a></li>
+            <li><a href="/map"> Find a map</a></li>
+            <li><a href="/summary"> Summary </a></li>
             <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
     </div>
@@ -61,6 +78,8 @@
         </div>
         {/each}
 </div>
+
+<button on:click={endConversation}>End Conversation</button>
 
 <footer> 
     <p1> Copyright 2024 SymptoQuest</p1>
@@ -166,6 +185,10 @@
         padding: 10px; 
         background: color #f1f1f1;
         border-radius:50px;
+    }
+
+    button {
+        margin-top: 20px;
     }
     
     </style>
