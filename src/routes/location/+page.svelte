@@ -91,8 +91,7 @@
     
     footer {
         text-align: center;
-        position: fixed;
-        bottom: 0;
+        position: bottom;
         left: 50%; /*helped moved the footer right in the middle*/
         width: 100;
         padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/

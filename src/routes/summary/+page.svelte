@@ -173,14 +173,25 @@
         margin: 0;
     }
     
-    footer {
-        text-align: center;
-        position: fixed;
-        bottom: 0;
-        left: 50%; /*helped moved the footer right in the middle*/
-        width: 100;
-        padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/
-    
+    html, body{
+        height: 100%;
+        margin: 0;
     }
+
+    body{
+        display: flex;
+        flex-direction: column;
+        min-height: 90vh;
+    }
+    
+    
+footer {
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    left: 0; /*helped moved the footer right in the middle*/
+    width: 100%;
+    padding: 1rem 20px; /*this helps align the footer nicely. not too low to the screen*/
+}
     
     </style>

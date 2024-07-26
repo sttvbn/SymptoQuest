@@ -11,10 +11,6 @@
 
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<h1>Welcome to the about page (this is a test to make sure everything is set up correctly)</h1>
-
 {#if $authStore.currentUser}
 <body>
     <div class="navbar">
@@ -22,15 +18,25 @@
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
             <li><a href="/map"> Find a map</a></li>
+            <li><a href="/summary"> Summary </a></li>
             <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
     </div>
 
+    <div class="content">
+        <h1>WELCOME TO SYMPTOQUEST!</h1>
+        <p>Our mission is to offer a symptom checker that's designed for users to utilize for medical needs with the use of AI technology. 
+        SymptoQuest aims to help users identify potential medical conditions, but please be aware that the purpose of SymptoQuest is designed 
+        for educational purposes only and shouldn't be considered a substitute for professional medical advice. For any real medical emergencies or concerns, 
+        please consult with a qualified healthcare professional. Thank you.</p>
+    </div>
+   
+
+</body>
 
 <footer> 
     <p1> Copyright 2024 SymptoQuest</p1>
 </footer>
-</body>
 {:else}
 <div>Error....</div>
 {/if}
@@ -38,8 +44,13 @@
 
 <style>
 
-body {
-    font-family: Arial, sans-serif;
+.content {
+    padding: 1rem;
+    text-align: center;
+    max-width: 600px; 
+    margin: 5rem auto 1rem auto;
+    border-radius: 8px;
+    
 }
 
 ul {
@@ -75,15 +86,27 @@ ul {
     color: black;
 }
 
+html, body{
+    height: 100%;
+    margin: 0;
+}
 
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    font-family: Arial, sans-serif;
+}
+
+    
 
 footer {
     text-align: center;
-    position: fixed;
+    position: relative;
     bottom: 0;
-    left: 50%; /*helped moved the footer right in the middle*/
-    width: 100;
-    padding: 10px 20px; /*this helps align the footer nicely. not too low to the screen*/
+    left: 0; /*helped moved the footer right in the middle*/
+    width: 100%;
+    padding: 1rem 20px; /*this helps align the footer nicely. not too low to the screen*/
 }
 
 </style>
