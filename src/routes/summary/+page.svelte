@@ -6,6 +6,7 @@
 
     let email; 
     let conversations = [];
+    let summary = '';
 
     authStore.subscribe((curr) => {
         console.log('CURR', curr);
@@ -22,6 +23,29 @@
         } else {
             console.log("No data available");
         }
+    }
+
+    async function fetchSummary(conversation) {
+        const response = await fetch("/summary", {
+            method: 'POST',
+            body: JSON.stringify({conversation}),
+            headers: { "Content-Type": "application/json"}
+        });
+
+        if (!response.ok) {
+            summary = 'An error occured while fetching the summary'
+            return;
+        }
+        const data = await response.json();
+        if (data.summary) {
+            summary = data.summary;
+        } else {
+            console.error('Invalid response format:', data);
+            summary = 'Failed to get summary';
+        }
+        //summary = data.summary;
+
+     
     }
 
     onMount(async () => {
@@ -60,6 +84,13 @@
                                 </div>
                             {/each}
                         </div>
+                        <button on:click={() => fetchSummary(conversation)}>Summary</button>
+                        {#if summary}
+                            <div class = "summary">
+                                <h2>Summary</h2>
+                                <p>{summary}</p>
+                            </div>
+                        {/if}
                     </div>
                 {/each}
             </div>
