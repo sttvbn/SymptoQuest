@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Diabetes",
+        "keywords": ["diabetes", "high blood sugar", "insulin"]
+    },
+    {
+        "name": "Covid-19",
+        "keywords": ["fever", "chills", "fatigue", "headache"]
+    },
+    {
+        "name": "",
+        "keywords": []
+    },
+    {
+        "name": "",
+        "keywords": []
+    },
+    {
+        "name": "",
+        "keywords": []
+    }
+  
+]
