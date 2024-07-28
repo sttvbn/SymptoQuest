@@ -5,9 +5,11 @@
     import { getDatabase, ref, set} from "firebase/database"
 
     let email; 
+    //let firstname;
     authStore.subscribe((curr) => {
         console.log('CURR', curr);
         email = curr?.currentUser?.email;
+        //firstname = curr?.currentUser?.firstname;
     });
     let prompt:string = "";
     //let messages:string[] = [];
@@ -51,14 +53,14 @@
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="/map"> Find a map</a></li>
+            <li><a href="/location"> Find a map</a></li>
             <li><a href="/summary"> Summary </a></li>
             <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
     </div>
 
     <div class="content">
-        <h1>Welcome</h1>
+        <h1>Welcome { email }</h1>
         <p>PLEASE DO NOT RELIE ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU'RE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
     </div>
 
