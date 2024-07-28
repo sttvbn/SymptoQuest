@@ -6,32 +6,38 @@
 
     let email; 
     let map;
-    let apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
+    const mapId = import.meta.env.VITE_MAP_ID; 
     authStore.subscribe((curr) => {
         console.log('CURR', curr);
         email = curr?.currentUser?.email;
     });
 
     onMount(() => {
-        console.log("API Key:", apiKey);
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
-        script.async = true;
-        document.head.appendChild(script);
+        if (!window.google){
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
 
-        script.onload = () => {
-            console.log("Google Maps script loaded successfully");
-        };
+            script.onload = () => {
+                console.log("Google Maps script loaded successfully");
+            };
 
-        script.onerror = (error) => {
-            console.error("Error loading Google Maps script:", error);
-        };
+            script.onerror = (error) => {
+                console.error("Error loading Google Maps script:", error);
+            };
+        } else {
+            initMap();
+        }
+        
 
         window.initMap = () => {
-            console.log("Initializing map");
             map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat:-34.397, lng: 150.644},
-                zoom: 8,
+                center: { lat: 33.857, lng: -117.890},
+                zoom: 13,
+                mapId: mapId
             });
         };
     });
