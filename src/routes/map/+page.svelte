@@ -16,8 +16,8 @@
         email = curr?.currentUser?.email;
     });
     const initialMapDisplayOptions = {
-        zoom: 8, 
-        center: { lat: 35, lng: -110},
+        zoom: 13, 
+        center: { lat: 33.857, lng: -117.89},
         mapId: VITE_MAP_ID
 
     };

@@ -3,9 +3,12 @@
     import { auth } from '../../lib/firebase/firebase.client';
     import { onMount } from 'svelte'; 
     import { GoogleAuthProvider } from "firebase/auth";
+    import { get } from 'svelte/store';
+
 
     let email; 
     let map;
+    let marker;
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
     const mapId = import.meta.env.VITE_MAP_ID; 
     authStore.subscribe((curr) => {
@@ -13,35 +16,106 @@
         email = curr?.currentUser?.email;
     });
 
-    onMount(() => {
-        if (!window.google){
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
-            script.async = true;
-            script.defer = true;
-            document.head.appendChild(script);
+    // Function to load the Google Maps script
+    function loadGoogleMapsScript() {
+        return new Promise((resolve, reject) => {
+            if (!window.google) {
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap`;
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
 
-            script.onload = () => {
-                console.log("Google Maps script loaded successfully");
-            };
+                script.onload = () => resolve();
+                script.onerror = (error) => reject(error);
+            } else {
+                resolve();
+            }
+        });
+    }
 
-            script.onerror = (error) => {
-                console.error("Error loading Google Maps script:", error);
-            };
-        } else {
-            initMap();
-        }
-        
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 33.857, lng: -117.890 },
+            zoom: 13,
+            mapId: mapId
+        });
 
-        window.initMap = () => {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 33.857, lng: -117.890},
-                zoom: 13,
-                mapId: mapId
+        // Initialize search box
+        const input = document.getElementById('search-input');
+        const searchBox = new google.maps.places.SearchBox(input);
+
+        // Add a button event listener for searching
+        document.getElementById('search-button').addEventListener('click', () => {
+            searchPlaces(searchBox);
+        });
+
+        // Add event listener for automatic place selection
+        searchBox.addListener('places_changed', () => {
+            searchPlaces(searchBox);
+        });
+
+        // Add a click event listener to place a marker
+        map.addListener('click', (event) => {
+            if (marker) {
+                marker.setMap(null); // Remove the previous marker
+            }
+
+            marker = new google.maps.Marker({
+                position: event.latLng,
+                map: map,
+                title: "User Marker"
             });
-        };
-    });
+        });
+    }
 
+    function searchPlaces(searchBox) {
+        const places = searchBox.getPlaces();
+
+        if (places.length === 0) {
+            return;
+        }
+
+        // Clear out the old marker
+        if (marker) {
+            marker.setMap(null);
+        }
+
+        const bounds = new google.maps.LatLngBounds();
+        places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            // Create a marker for each place
+            marker = new google.maps.Marker({
+                map: map,
+                title: place.name,
+                position: place.geometry.location
+            });
+
+            if (place.geometry.viewport) {
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+        map.fitBounds(bounds);
+    }
+
+    onMount(async () => {
+        const currentUser = get(authStore).currentUser;
+        if (currentUser) {
+            email = currentUser.email;
+            try {
+                await loadGoogleMapsScript();
+                initMap();
+            } catch (error) {
+                console.error("Error initializing Google Maps:", error);
+            }
+        }
+    });
 </script>
 
 {#if $authStore.currentUser}
@@ -58,6 +132,11 @@
 
     <div class="content">
         <h1>WELCOME TO SYMPTOQUEST'S MAP!</h1>
+    </div>
+
+    <div class = "search-container">
+        <input id = "search-input" class = "controls" type = "text" placeholder = "Search Box">
+        <button id = "search-button">Search</button>
     </div>
 
     <div id="map"></div>
