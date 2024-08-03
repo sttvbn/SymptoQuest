@@ -5,10 +5,9 @@
     import { GoogleAuthProvider } from "firebase/auth";
     import { get } from 'svelte/store';
 
-
     let email; 
     let map;
-    let marker;
+    let markers = []; // Initialize markers array here
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
     const mapId = import.meta.env.VITE_MAP_ID; 
     authStore.subscribe((curr) => {
@@ -34,7 +33,7 @@
         });
     }
 
-    function initMap() {
+    window.initMap = function() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 33.857, lng: -117.890 },
             zoom: 13,
@@ -47,39 +46,27 @@
 
         // Add a button event listener for searching
         document.getElementById('search-button').addEventListener('click', () => {
-            searchPlaces(searchBox);
+            google.maps.event.trigger(input, 'focus', {});
+            google.maps.event.trigger(input, 'keydown', { keyCode: 13 });
         });
 
-        // Add event listener for automatic place selection
         searchBox.addListener('places_changed', () => {
-            searchPlaces(searchBox);
+            const places = searchBox.getPlaces();
+            if(places.length === 0) {
+                return; 
+            }
+
+            searchPlaces(places);
         });
 
         // Add a click event listener to place a marker
         map.addListener('click', (event) => {
-            if (marker) {
-                marker.setMap(null); // Remove the previous marker
-            }
-
-            marker = new google.maps.Marker({
-                position: event.latLng,
-                map: map,
-                title: "User Marker"
-            });
+            placeCustomMarker(event.latLng);
         });
     }
 
-    function searchPlaces(searchBox) {
-        const places = searchBox.getPlaces();
-
-        if (places.length === 0) {
-            return;
-        }
-
-        // Clear out the old marker
-        if (marker) {
-            marker.setMap(null);
-        }
+    function searchPlaces(places) {
+        clearMarkers();
 
         const bounds = new google.maps.LatLngBounds();
         places.forEach((place) => {
@@ -89,10 +76,16 @@
             }
 
             // Create a marker for each place
-            marker = new google.maps.Marker({
+            const marker = new google.maps.Marker({
                 map: map,
                 title: place.name,
                 position: place.geometry.location
+            });
+
+            markers.push(marker);
+
+            google.maps.event.addListener(marker, 'click', () => {
+                showInfoPanel(place);
             });
 
             if (place.geometry.viewport) {
@@ -102,6 +95,55 @@
             }
         });
         map.fitBounds(bounds);
+    }
+
+    function clearMarkers() {
+        markers.forEach((marker) => marker.setMap(null));
+        markers = [];
+    }
+
+    function showInfoPanel(place) {
+        const placeInfoDiv = document.getElementById('place-info');
+        if (placeInfoDiv) {
+            placeInfoDiv.innerHTML = `
+                <h3>${place.name}</h3>
+                <p>${place.formatted_address}</p>
+                <p>${place.international_phone_number || 'No phone number available'}</p>
+                <p>Rating: ${place.rating || 'No rating available'}</p>
+                <p>${place.website ? `<a href="${place.website}" target="_blank">Website</a>` : 'No website available'}</p>
+            `;
+        }
+    }
+
+    function placeCustomMarker(latLng) {
+        clearMarkers();
+
+        const marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            title: "Custom Location"
+        });
+
+        markers.push(marker);
+
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ location: latLng }, (results, status) => {
+            if (status === 'OK') {
+                if (results[0]) {
+                    showInfoPanel ({
+                        name: "Custom Location",
+                        formatted_address: results[0].formatted_address,
+                        rating: "N/A",
+                        international_phone_number: "N/A",
+                        website: ""
+                    });
+                } else {
+                    console.log('No results found');
+                }
+            } else {
+                console.log('Geocoder failed due to: ' + status);
+            }
+        });
     }
 
     onMount(async () => {
@@ -222,5 +264,23 @@ footer {
     width: 100%;
     padding: 1rem 20px; /*this helps align the footer nicely. not too low to the screen*/
 }
+
+.search-container{
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+#search-input{
+    border-radius: 8px;
+    padding: 0.5rem;
+    width: 400px;
+}
+
+
+#search-button{
+    border-radius: 8px;
+}
+
 
 </style>
