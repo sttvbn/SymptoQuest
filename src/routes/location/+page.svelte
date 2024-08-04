@@ -10,6 +10,8 @@
     let markers = []; // Initialize markers array here
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
     const mapId = import.meta.env.VITE_MAP_ID; 
+    let infoWindow;
+
     authStore.subscribe((curr) => {
         console.log('CURR', curr);
         email = curr?.currentUser?.email;
@@ -39,6 +41,8 @@
             zoom: 13,
             mapId: mapId
         });
+
+        infoWindow = new google.maps.InfoWindow();
 
         // Initialize search box
         const input = document.getElementById('search-input');
@@ -85,7 +89,8 @@
             markers.push(marker);
 
             google.maps.event.addListener(marker, 'click', () => {
-                showInfoPanel(place);
+                console.log('Marker clicked:', place);
+                showInfoWindow(marker, place);
             });
 
             if (place.geometry.viewport) {
@@ -102,17 +107,19 @@
         markers = [];
     }
 
-    function showInfoPanel(place) {
-        const placeInfoDiv = document.getElementById('place-info');
-        if (placeInfoDiv) {
-            placeInfoDiv.innerHTML = `
+    function showInfoWindow(marker, place) {
+        console.log('Showing info for place: ', place);
+        const contentString = `
+            <div>
                 <h3>${place.name}</h3>
                 <p>${place.formatted_address}</p>
                 <p>${place.international_phone_number || 'No phone number available'}</p>
                 <p>Rating: ${place.rating || 'No rating available'}</p>
                 <p>${place.website ? `<a href="${place.website}" target="_blank">Website</a>` : 'No website available'}</p>
-            `;
-        }
+            </div>
+        `;
+        infoWindow.setContent(contentString);
+        infoWindow.open(map, marker);
     }
 
     function placeCustomMarker(latLng) {
@@ -130,7 +137,7 @@
         geocoder.geocode({ location: latLng }, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {
-                    showInfoPanel ({
+                    showInfoWindow(marker, {
                         name: "Custom Location",
                         formatted_address: results[0].formatted_address,
                         rating: "N/A",
@@ -166,7 +173,7 @@
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="/location"> Find a map</a></li>
+            <li><a href="/location"> Map</a></li>
             <li><a href="/summary"> Summary </a></li>
             <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
@@ -177,8 +184,10 @@
     </div>
 
     <div class = "search-container">
-        <input id = "search-input" class = "controls" type = "text" placeholder = "Search Box">
+        <!--<input id = "search-input" class = "controls" type = "text" placeholder = "Search Box">-->
+        <input type = "text" id="search-input" placeholder= "Search for places">
         <button id = "search-button">Search</button>
+        <div id = "place-info"></div>
     </div>
 
     <div id="map"></div>

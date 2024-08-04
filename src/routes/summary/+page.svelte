@@ -59,6 +59,7 @@
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
+            <li><a href="/location"> Map</a></li>
             <li><a href="/summary"> Summary </a></li>
             <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
