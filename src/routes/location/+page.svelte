@@ -2,7 +2,7 @@
     import { authHandlers, authStore } from "../../stores/authStore";
     import { auth } from '../../lib/firebase/firebase.client';
     import { onMount } from 'svelte'; 
-    import { GoogleAuthProvider } from "firebase/auth";
+    import { GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
     import { get } from 'svelte/store';
 
     let email; 
@@ -11,6 +11,7 @@
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
     const mapId = import.meta.env.VITE_MAP_ID; 
     let infoWindow;
+    //let isAuthenticated = false;
 
     authStore.subscribe((curr) => {
         console.log('CURR', curr);
@@ -154,16 +155,19 @@
     }
 
     onMount(async () => {
-        const currentUser = get(authStore).currentUser;
-        if (currentUser) {
-            email = currentUser.email;
-            try {
-                await loadGoogleMapsScript();
-                initMap();
-            } catch (error) {
-                console.error("Error initializing Google Maps:", error);
+        //const currentUser = get(authStore).currentUser;
+        onAuthStateChanged(auth, async (currentUser) => { //make sure the authentication is sync with firebase to prevent redirection to login
+            if (currentUser) {
+                email = currentUser.email;
+                //isAuthenticated = true;
+                try {
+                    await loadGoogleMapsScript();
+                    initMap();
+                } catch (error) {
+                    console.error("Error initializing Google Maps:", error);
+                }
             }
-        }
+        })
     });
 </script>
 
@@ -174,7 +178,7 @@
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
             <li><a href="/location"> Map</a></li>
-            <li><a href="/summary"> Summary </a></li>
+            <li><a href="/summary"> Chat Log </a></li>
             <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
         </ul>
     </div>
