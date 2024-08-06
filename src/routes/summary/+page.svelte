@@ -6,7 +6,8 @@
 
     let email; 
     let conversations = [];
-    let summary = '';
+    let summaries = {};
+    //let selectedConversation = null;
 
     authStore.subscribe((curr) => {
         console.log('CURR', curr);
@@ -33,19 +34,26 @@
         });
 
         if (!response.ok) {
-            summary = 'An error occured while fetching the summary'
+            summaries[conversation.timestamp] = 'An error occured while fetching the summary'
             return;
         }
         const data = await response.json();
         if (data.summary) {
-            summary = data.summary;
+            summaries[conversation.timestamp] = data.summary;
         } else {
             console.error('Invalid response format:', data);
-            summary = 'Failed to get summary';
+            summaries[conversation.timestamp] = 'Failed to get summary';
         }
         //summary = data.summary;
 
-     
+    }
+
+    function handleSummaryButton(conversation) {
+        //selectedConversation = conversationId;
+        if(!summaries[conversation.timestamp]){
+            fetchSummary(conversation);
+        }
+        //fetchSummary(conversationId);
     }
 
     onMount(async () => {
@@ -84,11 +92,11 @@
                                 </div>
                             {/each}
                         </div>
-                        <button on:click={() => fetchSummary(conversation)}>Summary</button>
-                        {#if summary}
+                        <button on:click={() => handleSummaryButton(conversation)}>Summary</button>
+                        {#if summaries[conversation.timestamp]}
                             <div class = "summary">
                                 <h2>Summary</h2>
-                                <p>{summary}</p>
+                                <p>{summaries[conversation.timestamp]}</p>
                             </div>
                         {/if}
                     </div>
