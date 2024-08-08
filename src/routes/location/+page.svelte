@@ -174,6 +174,9 @@
 {#if $authStore.currentUser}
 <body>
     <div class="navbar">
+        <div class = "logo">
+            <span>SYMPTOQUEST</span>
+        </div>
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
@@ -185,6 +188,7 @@
 
     <div class="content">
         <h1>WELCOME TO SYMPTOQUEST'S MAP!</h1>
+        <p>PLEASE DO NOT RELY ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU ARE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
     </div>
 
     <div class = "search-container">
@@ -219,6 +223,7 @@
     max-width: 600px; 
     margin: 5rem auto 1rem auto;
     border-radius: 8px;
+    font-weight: bold;
     
 }
 
@@ -227,10 +232,11 @@ ul {
     padding: 0; 
     margin: 0; 
     display: flex; /*make them rows instead of list*/
+    font-family: Arial, sans-serif;
 }
 .navbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: rgb(9, 160, 9);
     padding: 10px 20px;
     position: fixed; /*place the nav to the very top*/
     width: 100%;
@@ -238,6 +244,7 @@ ul {
     left: 0; 
     display: flex; /*makes the buttons into rows not a list*/
     justify-content: flex-end;
+    font-weight: bold;
     
 }
 
@@ -251,8 +258,9 @@ ul {
 }
 
 .navbar a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #333;
+    color: white;
+    border-radius: 50px;
 }
 
 html, body{
@@ -271,11 +279,14 @@ body{
 
 footer {
     text-align: center;
-    position: relative;
+    position: fixed;
     bottom: 0;
     left: 0; /*helped moved the footer right in the middle*/
     width: 100%;
-    padding: 1rem 20px; /*this helps align the footer nicely. not too low to the screen*/
+    padding: 1rem; /*this helps align the footer nicely. not too low to the screen*/
+    background-color: rgb(9, 160, 9);
+    color: white;
+    font-weight: bold;
 }
 
 .search-container{
@@ -292,7 +303,30 @@ footer {
 
 
 #search-button{
-    border-radius: 8px;
+    border-radius: 20px;
+    background-color:rgb(9, 160, 9);
+    font-weight: bold;
+
+}
+
+#search-button:hover{
+    background-color: #333;
+    color: white;
+    border-radius: 50px;
+}
+
+.logo{
+    margin-right: 950px;
+}
+
+.logo span{
+    display: block;
+    color: white;
+    /*text-align: center;*/
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size:24px;
+    font-weight: bold;
 }
 
 

@@ -50,6 +50,9 @@
 {#if $authStore.currentUser}
 <body>
     <div class="navbar">
+        <div class = "logo">
+            <span>SYMPTOQUEST</span>
+        </div>
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
@@ -95,7 +98,7 @@
 
 
 <style>
-
+ /*color for grey is #333*/
 
     ul {
         list-style-type: none; /*remove the bulletpoint */
@@ -106,7 +109,7 @@
     }
     .navbar {
         overflow: hidden;
-        background-color: #333;
+        background-color: rgb(9, 160, 9);
         padding: 10px 0px;
         position: fixed; /*place the nav to the very top*/
         width: 100%;
@@ -114,7 +117,7 @@
         left: 0; 
         display: flex; /*makes the buttons into rows not a list*/
         justify-content: flex-end;
-        
+        font-weight: bold;
     }
     
     .navbar a {
@@ -128,13 +131,16 @@
     
     
     .navbar a:hover {
-        background-color: #ddd;
-        color: black;
+        background-color: #333;
+        color: white;
+        border-radius: 50px;
     }
     
     .content {
         padding: 100px;
         text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
     
     }
 
@@ -152,11 +158,14 @@
     
     footer {
     text-align: center;
-    position: relative;
+    position: fixed;
     bottom: 0;
     left: 0; /*helped moved the footer right in the middle*/
     width: 100%;
-    padding: 1rem 20px; /*this helps align the footer nicely. not too low to the screen*/
+    padding: 1rem; /*this helps align the footer nicely. not too low to the screen*/
+    background-color: rgb(9, 160, 9);
+    color: white;
+    font-weight: bold;
     }
     
     h1{
@@ -177,8 +186,18 @@
     button{
         width: 100px;
         padding: 5px;
-        color:blue;
+        color: white;
+        background-color: rgb(9, 160, 9);
+        margin-top: 20px;
+        border-radius: 20px;
     }
+
+    button:hover{
+        background-color: #333;
+        color: white;
+        border-radius: 50px;
+    }
+    
     label{
         align-items: center;
     }
@@ -202,14 +221,28 @@
         border-radius:50px;
     }
 
-    button {
-        margin-top: 20px;
-    }
+    
 
     .message-block {
         background: #f1f1f1;
         border-radius: 10px;
         width: 800px;
     }
+
+    .logo{
+        margin-right: 950px;
+    }
+
+    .logo span{
+        display: block;
+        color: white;
+        /*text-align: center;*/
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size:24px;
+        font-weight: bold;
+    }
     
     </style>
+
+

@@ -64,6 +64,9 @@
 {#if $authStore.currentUser}
 <body>
     <div class="navbar">
+        <div class = "logo">
+            <span>SYMPTOQUEST</span>
+        </div>
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
@@ -74,8 +77,8 @@
     </div>
 
     <div class="content">
-        <h1>Welcome to the Summary/history page of user: {email}</h1>
-        <p>PLEASE DON'T BELEIVE EVERYTHING ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU'RE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
+        <h1>Welcome to the Chat log {email}</h1>
+        <p>PLEASE DO NOT RELY ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU ARE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
     </div>
 
     <div class = "history">
@@ -118,88 +121,115 @@
 <style>
 
 
-    ul {
-        list-style-type: none; /*remove the bulletpoint */
-        padding: 0; 
-        margin: 0; 
-        display: flex; /*make them rows instead of list*/
-        font-family: Arial, sans-serif;
-    }
-    .navbar {
-        overflow: hidden;
-        background-color: #333;
-        padding: 10px 0px;
-        position: fixed; /*place the nav to the very top*/
-        width: 100%;
-        top: 0; /*this helps the nav go fully to the top*/
-        left: 0; 
-        display: flex; /*makes the buttons into rows not a list*/
-        justify-content: flex-end;
-        
-    }
+ul {
+    list-style-type: none; /*remove the bulletpoint */
+    padding: 0; 
+    margin: 0; 
+    display: flex; /*make them rows instead of list*/
+    font-family: Arial, sans-serif;
+}
+.navbar {
+    overflow: hidden;
+    background-color: rgb(9, 160, 9);
+    padding: 10px 0px;
+    position: fixed; /*place the nav to the very top*/
+    width: 100%;
+    top: 0; /*this helps the nav go fully to the top*/
+    left: 0; 
+    display: flex; /*makes the buttons into rows not a list*/
+    justify-content: flex-end;
+    font-weight: bold;   
+}
     
-    .navbar a {
-        display: block;
-        color: white;
-        /*text-align: center;*/
-        padding: 14px 20px;
-        text-decoration: none;
-        margin-left: 50px; /*this helps space out the buttons*/
-    }
+.navbar a {
+    display: block;
+    color: white;
+    /*text-align: center;*/
+    padding: 14px 20px;
+    text-decoration: none;
+    margin-left: 50px; /*this helps space out the buttons*/
+}
     
+.navbar a:hover {
+    background-color: #333;
+    color: white;
+    border-radius: 50px;
+}
     
-    .navbar a:hover {
-        background-color: #ddd;
-        color: black;
-    }
+.content {
+    padding: 100px;
+    text-align: center;
+    font-weight: bold;  
+}
+
+h1{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.convo-list{
+    text-align: left;
+}
+
+.conversation{
+    border: 5px solid #333;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+.messages {
+    margin-left: 20px;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.message p{
+    margin: 0;
+}
     
-    .content {
-        padding: 100px;
-        text-align: center;
-    
-    }
+html, body{
+    height: 100%;
+    margin: 0;
+}
 
-    .convo-list{
-        text-align: left;
-    }
-
-    .conversation{
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 20px;
-    }
-
-    .messages {
-        margin-left: 20px;
-    }
-
-    .message {
-        margin-bottom: 10px;
-    }
-
-    .message p{
-        margin: 0;
-    }
-    
-    html, body{
-        height: 100%;
-        margin: 0;
-    }
-
-    body{
-        display: flex;
-        flex-direction: column;
-        min-height: 90vh;
-    }
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+}
     
     
 footer {
     text-align: center;
-    position: relative;
+    position: fixed;
     bottom: 0;
     left: 0; /*helped moved the footer right in the middle*/
     width: 100%;
-    padding: 1rem 20px; /*this helps align the footer nicely. not too low to the screen*/
+    padding: 1rem; /*this helps align the footer nicely. not too low to the screen*/
+    background-color: rgb(9, 160, 9);
+    color: white;
+    font-weight: bold;
+}
+
+.logo{
+    margin-right: 950px;
+}
+
+.logo span{
+    display: block;
+    color: white;
+    /*text-align: center;*/
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size:24px;
+    font-weight: bold;
+}
+
+.summary{
+    font-weight: bold;
 }
     
-    </style>
+</style>
