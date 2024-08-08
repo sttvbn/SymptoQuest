@@ -211,14 +211,33 @@
         border: 0px solid #ccc; /*this will show the border line of the response*/
         max-width: 90%;
         margin: 20px auto;
+         display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-end;
+        padding-right: 20px;
     }
+    
+    .message-block{
+        display: flex;
+        flex-direction: column;
+        background: #f1f1f1;
+        border-radius: 10px;
+        width: 800px;
+    }
+
     .message{
         white-space: pre-wrap;
         word-wrap: break-word;
-        margin-bottom: 10px;
+        margin-bottom: 10px 15px;
         padding: 10px; 
         background: color #f1f1f1;
-        border-radius:50px;
+        border-radius:20px;
+        display: inline-block;
+        max-width: 70%;
+        margin-bottom: 5px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
     }
 
     
@@ -227,6 +246,21 @@
         background: #f1f1f1;
         border-radius: 10px;
         width: 800px;
+    }
+    .message strong{
+        display: block;
+        margin-bottom: 5px;
+    }
+    .message-block pre:first-child{
+        align-self: flex-start;
+        background-color: rgb(9, 160, 9);
+        color: #333;
+    }
+    
+    .message-block pre:last-child{
+        align-self: flex-start;
+        background-color: (9, 160, 9);
+        color: #007bff;
     }
 
     .logo{
