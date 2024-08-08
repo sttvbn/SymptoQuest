@@ -2,116 +2,49 @@ import { env } from "$env/dynamic/private";
 import { text } from "@sveltejs/kit";
 import fs from 'fs';
 import path from 'path';
-//import nlp from 'compromise';
 
-//load diseases.json
-const diseasesPath = path.resolve('src/routes/home/DiseasesOutput.json');
-let diseases = [];
+// Load diseases.json
+//const diseasesPath = path.resolve('src/routes/home/DiseasesOutput.json');
 
-try {
-    const data = fs.readFileSync(diseasesPath, 'utf-8');
-    diseases = JSON.parse(data);
-} catch {
-    console.error('Error reading diseases file', Error);
+//try {
+    //const data = fs.readFileSync(diseasesPath, 'utf-8');
+    //diseases = JSON.parse(data);
+//} catch (error) {
+    //console.error('Error reading diseases file', error);
+//}
 
-}
-// Medical-related keywords
-const medicalKeywords = [
-    "symptom", "disease", "medicine", "doctor", "pain", "fever", "treatment",
-    "diagnosis", "infection", "cough", "surgery", "therapy", "prescription", "sick"
+let convohistory = [
+    {
+        role: "system", 
+        content: "You are a medical assistant. Only respond to queries related to human health and symptoms. Ignore any non-medical topics but if the queries is medical related but for animals, be nice and say sorry but the queries should be for humans not animals."
+    }
 ];
 
-const nonmedical = [
-    "dog", "cat", "animal", "pet", "vet", "veterinary", "car", "veichle", "truck", "train", "airplane"
-]
-
-//const MIN_SYMPTOM_LENGTH = 10;
-//save the current conversation history for the api to remember
-let convohistory = [];
+//const isMedicalPrompt = (prompt, diseases) => {
+    //const lowerPrompt = prompt.toLowerCase(); 
+    //return diseases.some(disease => lowerPrompt.includes(disease.name.toLowerCase()) || disease.alias.some(alias => lowerPrompt.includes(alias.toLowerCase())));
+//};
 
 export const actions = {
-    default: async({request}) => {
+    default: async ({ request }) => {
         const form = await request.formData();
         const prompt = form.get("prompt");
         const openai_key = env.OPENAI_KEY;
 
-        //function to check if medical related
-        const isMedicalRelated = (text) => {
-            const lowerCase = text.toLowerCase();
-            const keywordMatch = medicalKeywords.some(keyword =>lowerCase.includes(keyword));
-            //return medicalKeywords.some(keyword =>lowerCase.includes(keyword));
-            //const doc = nlp(text);
-            //const medicalEntities = doc.match(medicalKeywords.join(' ')).out('array');
-            //additional checks can be added
-            //return keywordMatch && medicalEntities.length > 0;
-            return keywordMatch;
-        }
+        //if(!isMedicalPrompt(prompt, diseases)) {
+            //return text("Please ask a medical-related question.");
+        //}
 
-        const containnonmedical = (text) => {
-            const lowerCaseText = text.toLowerCase();
-            return nonmedical.some(keyword => lowerCaseText.includes(keyword));
-            //return nonmedical;
-            //console.log(`Checking for non-medical content: ${nonmedicalmatch} (TexT: ${lowerCaseText})`);
-            //return nonmedicalmatch;
-        };
 
-        const identify = (text) => {
-            const lowerCaseText = text.toLowerCase();
-            const symptoms = diseases.filter(disease => 
-                lowerCaseText.includes(disease.text.toLowerCase())
-            );
-            return symptoms.length > 0 ? symptoms: null;
-        };
-        
-        //function to check diseases in already in file
-        const checkDisease = (text) => {
-            const lowerCase = text.lowerCase();
-            for (const disease of diseases ){
-                if (disease.keyword.some(keyword => lowerCase.includes(keyword))){
-                   return disease.name; 
-                }
-            }
-            return null;
-        };
-        //function to append to JSON file
-        const appendDisease = (diseaseName, symptoms) => {
-            const newDisease = {
-                name:"diseasesName",
-                keywords: "symptoms"
-            };
-            diseases.push(newDisease);
-            fs.writeFileSync(diseasesPath,JSON.stringify(diseases, null, 2), 'utf-8');
-        };
+        // Add user's message to conversation history
+        convohistory.push({ role: "user", content: prompt });
 
-        //const symptoms = identify(prompt);
-
-        //if (symptoms.length > 0) {
-            //const message = `Based on you input, the possible symptoms are: ${symptoms.map(symptom => symptom.text).join(', ')}.`;
-            //console.log(message);
-            //return { message };
-        //}  
-        //if (!symptoms.length > 0){
-        //const followup = "Please provide more information to help identify your symptom or solution.";
-       // return { message: followup};
-       // }
-        
-
-        //if not medical related
-        if (!isMedicalRelated(prompt) || containnonmedical(prompt)) {
-            const message = "I am a medical chatbox.  Pleases send your symptoms or medical-related questions in the chatbox.";
-            console.log(message);
-            return { message };
-        }
-
-        //user's message to conversation history 
-        convohistory.push({role: "user", content: prompt});
-        //send request
+        // Send request to OpenAI
         const body = {
             model: "gpt-3.5-turbo",
-            //messages: [{role: "user", content: prompt}],
-            messages: convohistory,
+            messages: convohistory
         };
-        //send to OPENAI
+
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -120,12 +53,13 @@ export const actions = {
             },
             body: JSON.stringify(body),
         });
+
         const data = await response.json();
         const message = data["choices"][0]["message"]["content"];
-        //assistant message to conversation history
-        convohistory.push({role: "assistant", content: message});
+
+        // Add assistant's message to conversation history
+        convohistory.push({ role: "assistant", content: message });
         console.log(message);
         return message;
-        
     }
-}
+};

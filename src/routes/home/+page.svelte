@@ -61,7 +61,7 @@
 
     <div class="content">
         <h1>Welcome { email }</h1>
-        <p>PLEASE DO NOT RELIE ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU ARE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
+        <p>PLEASE DO NOT RELY ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU ARE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
     </div>
 
     <form method="POST" on:submit|preventDefault={sendPrompt}>
@@ -204,6 +204,12 @@
 
     button {
         margin-top: 20px;
+    }
+
+    .message-block {
+        background: #f1f1f1;
+        border-radius: 10px;
+        width: 800px;
     }
     
     </style>

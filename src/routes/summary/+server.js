@@ -13,7 +13,7 @@ export async function POST({ request }) {
         body: JSON.stringify({
             model: 'gpt-3.5-turbo',
             messages: [
-                {role: 'system', content: 'Summarize the following conversation: '},
+                {role: 'system', content: 'Summarize the following conversation but highlight the important part of the conversation as well as concerns, solutions, and advices given. '},
                 { role: 'user', content: conversation.conversation.map(msg => `${msg.prompt} ${msg.response}`).join('\n')}
             ]
         })
