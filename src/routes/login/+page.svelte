@@ -85,6 +85,9 @@
 </script>
 
 <body>
+  <div class ="logo-name">
+    <span class = "text1">SYMPTO</span><span class = "text2">QUEST</span>
+  </div>
   {#if register}
     <div id = "login-form" class = "form-container">
       <form class="form-box" id="login-form">
@@ -139,6 +142,23 @@
 
 
 <style>
+  .logo-name{
+    position:fixed;
+    font-size: 3rem;
+    font-weight: bold;
+    top: 20%;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .text1{
+    color: rgb(4, 163, 4);
+  }
+
+  .text2{
+    color: rgb(51, 51, 51);
+  }
+
   body{
     height: 100vh;
     margin: 0;
@@ -146,7 +166,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f2f2f2;
+    background-color: hsl(0, 1%, 70%);
   }
   
   .form-container {
