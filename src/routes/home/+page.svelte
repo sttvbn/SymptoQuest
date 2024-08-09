@@ -79,7 +79,7 @@
         {#each messages as { prompt, response }}
             <div class="message-block">
                 <pre class="message"><strong>{email}:</strong> {prompt}</pre>
-                <pre class="message"><strong>Assistant:</strong> {response}</pre>
+                <pre class="message"><strong>SymptoQuest:</strong> {response}</pre>
             </div>
             {/each}
     </div>
