@@ -5,17 +5,18 @@
     import { GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
     let email; 
-    let map;
-    let markers = []; // Initialize markers array here
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
-    const mapId = import.meta.env.VITE_MAP_ID; 
-    let infoWindow;
-    //let isAuthenticated = false;
 
     authStore.subscribe((curr) => {
         console.log('CURR', curr);
         email = curr?.currentUser?.email;
     });
+
+
+    let map;
+    let markers = []; // Initialize markers array here
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
+    const mapId = import.meta.env.VITE_MAP_ID; 
+    let infoWindow;
 
     // Function to load the Google Maps script
     function loadGoogleMapsScript() {
@@ -25,22 +26,29 @@
                 script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap`;
                 script.async = true;
                 script.defer = true;
-                document.head.appendChild(script);
-
                 script.onload = () => resolve();
-                script.onerror = (error) => reject(error);
+                script.onerror = (error) => {
+                    console.error("Error loading Google Maps", error);
+                    reject(error);
+                };
+                document.head.appendChild(script);
             } else {
                 resolve();
             }
         });
     }
 
-    window.initMap = function() {
-        map = new google.maps.Map(document.getElementById('map'), {
+
+    async function initMap() {
+        const { Map } = await google.maps.importLibrary("maps");
+        map = new Map(document.getElementById('map'), {
             center: { lat: 33.857, lng: -117.890 },
             zoom: 13,
             mapId: mapId
         });
+
+        google.maps.importLibrary("maps");
+        google.maps.importLibrary("marker");
 
         infoWindow = new google.maps.InfoWindow();
 
