@@ -137,7 +137,7 @@ ul {
     top: 0; /*this helps the nav go fully to the top*/
     left: 0; 
     display: flex; /*makes the buttons into rows not a list*/
-    justify-content: flex-end;
+    justify-content: space-between;
     font-weight: bold;   
 }
     

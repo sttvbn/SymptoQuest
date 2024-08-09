@@ -248,7 +248,7 @@ ul {
     top: 0; /*this helps the nav go fully to the top*/
     left: 0; 
     display: flex; /*makes the buttons into rows not a list*/
-    justify-content: flex-end;
+    justify-content: space-between;
     font-weight: bold;
     
 }
@@ -272,7 +272,6 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 90vh;
-    font-family: Arial, sans-serif;
 }
 footer {
     text-align: center;

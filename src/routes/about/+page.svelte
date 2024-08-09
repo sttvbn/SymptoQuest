@@ -73,15 +73,13 @@ ul {
     top: 0; /*this helps the nav go fully to the top*/
     left: 0; 
     display: flex; /*makes the buttons into rows not a list*/
-    justify-content: flex-end;
+    justify-content: space-between;
     font-weight: bold;
-    
 }
 
 .navbar a {
     display: block;
     color: white;
-    /*text-align: center;*/
     padding: 14px 20px;
     text-decoration: none;
     margin-left: 50px; /*this helps space out the buttons*/
@@ -98,7 +96,6 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 90vh;
-    font-family: Arial, sans-serif;
 }
 
 footer {
@@ -111,10 +108,6 @@ footer {
     background-color: rgb(9, 160, 9);
     color: white;
     font-weight: bold;
-}
-
-.logo{
-    margin-right: 950px;
 }
 
 .logo span{

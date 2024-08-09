@@ -206,7 +206,7 @@
         border: 0px solid #ccc; /*this will show the border line of the response*/
         max-width: 90%;
         margin: 20px auto;
-         display: flex;
+        display: flex;
         flex-direction: column;
         gap: 10px;
         align-items: flex-end;
