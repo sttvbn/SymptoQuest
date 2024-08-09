@@ -72,7 +72,7 @@
             <li><a href="/about">About Us</a></li>
             <li><a href="/location"> Map</a></li>
             <li><a href="/summary"> Chat Log </a></li>
-            <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
+            <li><button class = "logout" on:click={authHandlers.logout}>Logout</button></li>
         </ul>
     </div>
 
@@ -189,11 +189,6 @@ h1{
 .message p{
     margin: 0;
 }
-    
-html, body{
-    height: 100%;
-    margin: 0;
-}
 
 body{
     display: flex;
@@ -231,5 +226,27 @@ footer {
 .summary{
     font-weight: bold;
 }
-    
+
+.logout {
+    display: flex;
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    background-color: rgb(9, 160, 9);
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    margin: 0;
+    height: 100%;
+    font-size: 16px;
+    margin-left: 50px;
+}
+
+.logout:hover {
+    background-color: #333;
+    color: white;
+    border-radius: 50px;
+    height: auto;
+}    
 </style>

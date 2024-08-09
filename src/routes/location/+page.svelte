@@ -3,7 +3,6 @@
     import { auth } from '../../lib/firebase/firebase.client';
     import { onMount } from 'svelte'; 
     import { GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
-    import { get } from 'svelte/store';
 
     let email; 
     let map;
@@ -182,7 +181,7 @@
             <li><a href="/about">About Us</a></li>
             <li><a href="/location"> Map</a></li>
             <li><a href="/summary"> Chat Log </a></li>
-            <li><a href = "#" on:click={authHandlers.logout}>Logout</a></li>
+            <li><button class = "logout" on:click={authHandlers.logout}>Logout</button></li>
         </ul>
     </div>
 
@@ -263,20 +262,12 @@ ul {
     border-radius: 50px;
 }
 
-html, body{
-    height: 100%;
-    margin: 0;
-}
-
 body{
     display: flex;
     flex-direction: column;
     min-height: 90vh;
     font-family: Arial, sans-serif;
 }
-
-    
-
 footer {
     text-align: center;
     position: fixed;
@@ -329,5 +320,26 @@ footer {
     font-weight: bold;
 }
 
+.logout {
+    display: flex;
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    background-color: rgb(9, 160, 9);
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    margin: 0;
+    height: 100%;
+    font-size: 16px;
+    margin-left: 50px;
+}
 
+.logout:hover {
+    background-color: #333;
+    color: white;
+    border-radius: 50px;
+    height: auto;
+}
 </style>
