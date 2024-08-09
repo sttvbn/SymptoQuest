@@ -154,11 +154,9 @@
     }
 
     onMount(async () => {
-        //const currentUser = get(authStore).currentUser;
         onAuthStateChanged(auth, async (currentUser) => { //make sure the authentication is sync with firebase to prevent redirection to login
             if (currentUser) {
                 email = currentUser.email;
-                //isAuthenticated = true;
                 try {
                     await loadGoogleMapsScript();
                     initMap();
@@ -203,7 +201,7 @@
 </body>
 
 <footer> 
-    <p1> Copyright 2024 SymptoQuest</p1>
+    <p> Copyright 2024 SymptoQuest</p>
 </footer>
 {:else}
 <div>Error....</div>
