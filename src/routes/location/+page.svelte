@@ -177,9 +177,9 @@
 {#if $authStore.currentUser}
 <body class="page-wrapper">
     <div class="navbar">
-        <div class="logo">
+        <a href = "/home" class = "logo">
             <span>SYMPTOQUEST</span>
-        </div>
+        </a>
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
@@ -251,7 +251,7 @@
     .navbar {
         overflow: hidden;
         background-color: rgb(9, 160, 9);
-        padding: 10px 0;
+        padding: 10px 0px;
         position: fixed;
         width: 100%;
         top: 0;
@@ -309,18 +309,23 @@
         border-radius: 50px;
     }
 
-    .logo {
-        margin-right: 950px;
-    }
+.logo{
+    display: flex;
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
 
-    .logo span {
-        display: block;
-        color: white;
-        padding: 14px 20px;
-        text-decoration: none;
-        font-size: 24px;
-        font-weight: bold;
-    }
+.navbar a.logo span:hover {
+    color: inherit;
+}
+
+.navbar a.logo:hover {
+    background-color: transparent;
+    color: inherit;
+}
 
     .logout {
         display: flex;
@@ -335,12 +340,13 @@
         margin: 0;
         height: 100%;
         font-size: 16px;
-        margin-left: 50px;
+        margin-left: 40px;
     }
 
     .logout:hover {
         background-color: #333;
         color: white;
         border-radius: 50px;
+        height: auto;
     }
 </style>
