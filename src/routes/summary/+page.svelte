@@ -193,20 +193,27 @@ h1{
 body{
     display: flex;
     flex-direction: column;
-    min-height: 90vh;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
     
     
+.page-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        flex: 1;
+        overflow: hidden;
+    }
 footer {
     text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0; /*helped moved the footer right in the middle*/
-    width: 100%;
-    padding: 1rem; /*this helps align the footer nicely. not too low to the screen*/
-    background-color: rgb(9, 160, 9);
-    color: white;
-    font-weight: bold;
+        padding: 1rem;
+        background-color: rgb(9, 160, 9);
+        color: white;
+        font-weight: bold;
+        margin-top: auto;
+        flex-shrink: 0;
 }
 
 .logo{
