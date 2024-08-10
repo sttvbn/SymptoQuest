@@ -142,102 +142,103 @@
 
 
 <style>
-  .logo-name{
-    position:fixed;
-    font-size: 3rem;
-    font-weight: bold;
-    top: 20%;
-    margin-bottom: 10px;
-    text-align: center;
-  }
+.logo-name{
+  position:fixed;
+  font-size: 3rem;
+  font-weight: bold;
+  top: 20%;
+  margin-bottom: 10px;
+  text-align: center;
+  /*flex-direction: column;   this basically keeps the name brand in one place*/
+}
 
-  .text1{
-    color: rgb(4, 163, 4);
-  }
+.text1{
+  color: rgb(4, 163, 4);
+}
 
-  .text2{
-    color: rgb(51, 51, 51);
-  }
+.text2{
+  color: rgb(51, 51, 51);
+}
 
-  body{
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: hsl(0, 1%, 70%);
-  }
+:global(body){
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(0, 1%, 70%);
+}
   
-  .form-container {
-    margin-top: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
+.form-container {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
   
-  .form-box {
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 300px;
-  }
+.form-box {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 300px;
+}
   
-  input[type=text], input[type=password]/*, input[type=email]*/ {
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
+input[type=text], input[type=password]/*, input[type=email]*/ {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
   
-  .btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
   
-  .btn:hover {
-    opacity:0.8;
-  }
+.btn:hover {
+  opacity:0.8;
+}
   
-  h2 {
-    text-align: center;
-  }
+h2 {
+  text-align: center;
+}
 
-  .toggle-login{
-    border: none;
-    background-color: transparent;
-    cursor: pointer; 
-    display: flex;
-    align-items: center;
-    text-decoration: underline;
-  }
-  .toggle-signup{
-    border: none;
-    background-color: transparent;
-    align-items: center;
-    cursor: pointer; 
-    display: flex;
-    text-decoration: underline;
-  }
+.toggle-login{
+  border: none;
+  background-color: transparent;
+  cursor: pointer; 
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
+}
+.toggle-signup{
+  border: none;
+  background-color: transparent;
+  align-items: center;
+  cursor: pointer; 
+  display: flex;
+  text-decoration: underline;
+}
 
-  .error {
-    color: red; 
-    text-align: center;
-  }
+.error {
+  color: red; 
+  text-align: center;
+}
 
-  .success {
-    color: green;
-    text-align: center;
-  }
+.success {
+  color: green;
+  text-align: center;
+}
   
 </style>

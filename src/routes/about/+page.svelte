@@ -14,9 +14,9 @@
 {#if $authStore.currentUser}
 <body>
     <div class="navbar">
-        <div class = "logo">
+        <a href = "/home" class = "logo">
             <span>SYMPTOQUEST</span>
-        </div>
+        </a>
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
@@ -82,7 +82,7 @@ ul {
     color: white;
     padding: 14px 20px;
     text-decoration: none;
-    margin-left: 50px; /*this helps space out the buttons*/
+    margin-left: 40px; /*this helps space out the buttons*/
 }
 
 .navbar a:hover {
@@ -110,14 +110,23 @@ footer {
     font-weight: bold;
 }
 
-.logo span{
-    display: block;
+.logo{
+    display: flex;
     color: white;
     /*text-align: center;*/
     padding: 14px 20px;
     text-decoration: none;
     font-size:24px;
     font-weight: bold;
+}
+
+.navbar a.logo span:hover {
+    color: inherit;
+}
+
+.navbar a.logo:hover {
+    background-color: transparent;
+    color: inherit;
 }
 
 .logout {
