@@ -146,7 +146,7 @@
   position:fixed;
   font-size: 3rem;
   font-weight: bold;
-  top: 20%;
+  top: 10%;
   margin-bottom: 10px;
   text-align: center;
   /*flex-direction: column;   this basically keeps the name brand in one place*/
