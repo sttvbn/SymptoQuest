@@ -262,9 +262,6 @@ h2 {
   text-align: center;
 }
 
-.guest{
-
-}
 
   
 </style>
