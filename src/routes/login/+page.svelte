@@ -88,6 +88,7 @@
   <div class ="logo-name">
     <span class = "text1">SYMPTO</span><span class = "text2">QUEST</span>
   </div>
+
   {#if register}
     <div id = "login-form" class = "form-container">
       <form class="form-box" id="login-form">
@@ -106,8 +107,15 @@
           {#if message}
           <p class = "success">{message}</p>
           {/if}
+
+          <div class = "guest">
+            <span class = "guest-info"> Guest Login</span>
+            <span class = "email-info"> Email: guest@gmail.com</span>
+            <span class = "password-info"> Password: password123</span>
+          </div>
       </form>
     </div>
+
     {:else}    
     <div id = "signup-form" class = "form-container">
       <form class="form-box" id="signup-form">
@@ -150,6 +158,19 @@
   margin-bottom: 10px;
   text-align: center;
   /*flex-direction: column;   this basically keeps the name brand in one place*/
+}
+
+.guest{
+  position: fixed;
+  bottom: 15%;
+  font-weight: bold;
+
+}
+
+.email-info, .password-info, .guest-info {
+  display:block;
+  margin-top: 10px;
+  font-size: 1.5rem;
 }
 
 .text1{
@@ -240,5 +261,10 @@ h2 {
   color: green;
   text-align: center;
 }
+
+.guest{
+
+}
+
   
 </style>

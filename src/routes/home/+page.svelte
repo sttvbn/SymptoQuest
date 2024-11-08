@@ -64,9 +64,11 @@
 
     <div class="content">
         <h1>Welcome { email }</h1>
-        <p>PLEASE DO NOT RELY ON THIS WEBSITE FOR MEDICAL TREATMENT! IF YOU ARE FEELING UNWELL, CONSULT WITH A MEDICAL PROFESSIONAL.</p>
-    </div>
 
+        <p><strong>Disclaimer:</strong> This website is created for educational purposes only. If you are feeling unwell, please consult with a qualified medical professional.</p>
+        <p>Guide: Engage in a conversation with the AI about medical-realted topics. When you're done, click "End Conversation" to save all interactions in the Chat Log.</p>
+    </div>
+    
     <form method="POST" on:submit|preventDefault={sendPrompt}>
         <label for="prompt">
             <textarea name="prompt" rows="5" bind:value={prompt}></textarea>
